@@ -18,18 +18,10 @@
       <% end %>
     </h1>
 
-    <div class="flex-item-justify-end" data-controller="dialog">
-      <%= tag.button class: "btn flex-item-justify-end", popovertarget: "new-splat-panel" do %>
-        <%= image_tag "add.svg", aria: { hidden: true }, size: 24 %>
-        <span class="for-screen-reader">Create a new splat</span>
-      <% end %>
-
-      <dialog class="panel" id="new-splat-panel" data-dialog-target="dialog" popover>
-        <div class="flex pad">
-          <%= turbo_frame_tag :new_splat, src: new_splat_path, target: "_top" %>
-        </div>
-      </dialog>
-    </div>
+    <%= link_to new_splat_path, class: "btn flex-item-justify-end" do %>
+      <%= image_tag "add.svg", aria: { hidden: true }, size: 24 %>
+      <span class="for-screen-reader">Create a new splat</span>
+    <% end %>
   </nav>
 <% end %>
 
