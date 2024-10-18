@@ -48,14 +48,9 @@ class BubblesController < ApplicationController
     end
 
     def set_view
-      if params[:view_id]
-        @view = @bucket.views.find_by_id params[:view_id]
-      end
-
-      unless @view
-        @view = @bucket.views.find_by creator: Current.user, filters: helpers.bubble_filter_params.to_h
-        params[:view_id] = @view&.id
-      end
+      @view = @bucket.views.find_by_id(params[:view_id]) if params[:view_id]
+      @view ||= @bucket.views.find_by(creator: Current.user, filters: helpers.bubble_filter_params.to_h)
+      params[:view_id] = @view.id
     end
 
     def set_tag_filters
