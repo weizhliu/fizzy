@@ -1,5 +1,5 @@
 <%= turbo_frame_tag :workflows do %>
-  <section class="flex flex-wrap gap">
+  <section class="flex flex-column gap fill-shade border-radius">
     <%= render partial: "workflows/workflow", collection: @workflows %>
   </section>
 

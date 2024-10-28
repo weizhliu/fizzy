@@ -1,25 +1,30 @@
 <%= turbo_frame_tag workflow do %>
-  <article class="border">
-    <div class="flex pad gap justify-space-between">
+  <article>
+    <div class="flex pad gap align-center justify-space-between">
       <%= turbo_frame_tag dom_id(workflow, :header) do %>
-        <h3 class="txt-nowrap"><%= workflow.name %></h3>
+        <%= link_to edit_workflow_path(workflow), class: "btn btn--small" do %>
+          <%= image_tag "pencil.svg", aria: { hidden: true }, size: 24 %>
+          <span class="for-screen-reader">Edit <%= workflow.name %></span>
+        <% end %>
 
-        <div class="flex gap">
-          <%= link_to edit_workflow_path(workflow), class: "btn btn--small" do %>
-            <%= image_tag "pencil.svg", aria: { hidden: true }, size: 24 %>
-          <% end %>
+        <h3 class="txt-nowrap margin-none"><%= workflow.name %></h3>
 
-          <%= button_to workflow_path(workflow), method: :delete, class: "btn btn--small", data: { turbo_frame: :workflows, turbo_confirm: "Are you sure you want to delete this workflow?" } do %>
-            <%= image_tag "minus.svg", aria: { hidden: true }, size: 24 %>
-          <% end %>
-        </div>
+        <%= button_to workflow_path(workflow), method: :delete, class: "btn btn--negative btn--small", data: { turbo_frame: :workflows, turbo_confirm: "Are you sure you want to delete this workflow?" } do %>
+          <%= image_tag "minus.svg", aria: { hidden: true }, size: 24 %>
+          <span class="for-screen-reader">Delete <%= workflow.name %></span>
+        <% end %>
       <% end %>
     </div>
 
-    <div class="border-top flex flex-column pad gap">
+    <hr class="separator--horizontal flex-item-grow" aria-hidden="true" style="--border-color: var(--color-bg)">
+
+    <div class="flex flex-column pad gap">
       <%= turbo_frame_tag dom_id(workflow, :stages) do %>
         <%= render partial: "workflows/stages/stage", collection: workflow.stages %>
-        <%= link_to "New stage", new_workflow_stage_path(workflow), class: "btn btn--small" %>
+        <%= link_to new_workflow_stage_path(workflow), class: "btn btn--positive btn--small" do %>
+          <%= image_tag "add.svg", aria: { hidden: true }, size: 24 %>
+          <span class="for-screen-reader">New stage</span>
+        <% end %>
       <% end %>
     </div>
   </article>
