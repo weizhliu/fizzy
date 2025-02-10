@@ -7,6 +7,12 @@ module Bubble::Statuses
     scope :published_or_drafted_by, ->(user) { where(status: :published).or(where(status: :drafted, creator: user)) }
   end
 
+  class_methods do
+    def remove_abandoned_creations
+      Bubble.creating.where(updated_at: ..1.day.ago).destroy_all
+    end
+  end
+
   def can_recover_abandoned_creation?
     abandoned_creations.where(updated_at: 1.day.ago..).any?
   end

@@ -47,4 +47,15 @@ class Bubble::StatusesTest < ActiveSupport::TestCase
 
     assert_raises(ActiveRecord::RecordNotFound) { bubble_not_edited.reload }
   end
+
+  test "remove_abandoned_creations" do
+    bubble_old = buckets(:writebook).bubbles.create! creator: users(:kevin), updated_at: 2.days.ago
+    bubble_recent = buckets(:writebook).bubbles.create! creator: users(:kevin)
+
+    assert_equal 2, Bubble.creating.count
+
+    Bubble.remove_abandoned_creations
+
+    assert_equal [ bubble_recent ], Bubble.creating
+  end
 end
