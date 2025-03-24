@@ -94,4 +94,6 @@
   <% end %>
 </div>
 
-<%= link_to "Go back", bubbles_path(bucket_ids: [ @bubble.bucket ]), class: "btn", data: { controller: "hotkey", action: "keydown.esc@document->hotkey#click" }, hidden: true %>
+<%= link_to "Go back", "#", class: "btn", 
+      data: { controller: "back-navigation hotkey", 
+      action: "keydown.esc@document->hotkey#click", back_navigation_fallback_destination_value: bubbles_path(bucket_id: @bubble.bucket) } %>
