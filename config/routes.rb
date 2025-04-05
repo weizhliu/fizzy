@@ -95,11 +95,8 @@ Rails.application.routes.draw do
   get "up", to: "rails/health#show", as: :rails_health_check
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
-  namespace :bubbles do
-    namespace :pins do
-      resource :tray, only: :show
-    end
-    resources :pins, only: :index
+  namespace :my do
+    resources :pins
   end
 
   resource :terminal, only: [ :show, :edit ]

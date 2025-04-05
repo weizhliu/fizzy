@@ -2,7 +2,7 @@
 
 <%= tag.dialog id: "pin-tray", class: "tray pin-tray",
       data: { controller: "dialog", turbo_permanent: true, dialog_modal_value: false, dialog_target: "dialog", action: "keydown.esc->dialog#close:stop click@document->dialog#closeOnClickOutside" } do %>
-  <%= turbo_frame_tag "pins", src: bubbles_pins_tray_path %>
+  <%= turbo_frame_tag "pins", src: my_pins_path %>
 
   <div class="tray__actions border border-radius">
     <button class="txt-uppercase btn btn--reversed borderless fill-transparent txt-x-small translucent center" data-action="click->dialog#close">Pinned</button>
