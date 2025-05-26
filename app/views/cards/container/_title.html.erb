@@ -18,7 +18,7 @@
             data: { action: "auto-save#change blur->auto-save#submit keydown.enter->auto-save#submit:prevent keydown.ctrl+enter->auto-save#submit:prevent" } %>
     </h1>
     <div class="card__description rich-text-content margin-block-start-half margin-block-end">
-      <%= form.rich_textarea :description, class: "input input--textarea full-width borderless txt-align-start card-field__description",
+      <%= form.rich_textarea :description, class: "card-field__description",
             placeholder: "Add some notes, context, pictures, or video about this…",
             data: { action: "house-md:change->auto-save#change focusout->auto-save#submit keydown.ctrl+enter->form#submit:prevent keydown.meta+enter->form#submit:prevent keydown.esc->form#cancel:stop paste->paste#pasteFiles" } %>
     </div>

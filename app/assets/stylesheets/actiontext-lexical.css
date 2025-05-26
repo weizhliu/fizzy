@@ -1,42 +1,73 @@
-.lexical-editor__content {
-  padding: 1rem 0.5rem;
-}
-
 lexical-editor {
-  .node--selected:has(img) {
-    img {
-      border: 2px solid blue;
+  .node--selected {
+    &:not(:has(img)) {
+      box-shadow: 0 0 0 var(--hover-size) var(--hover-color);
+    }
+
+    &:has(img) {
+      img {
+        box-shadow: 0 0 0 var(--hover-size) var(--hover-color);
+      }
     }
   }
+}
 
-  .node--selected:not(:has(img)) {
-    border: 2px solid blue;
+.lexical-editor__content {
+  --outline-size: max(2px, 0.08em);
+
+  margin: var(--block-space-half) 0;
+  min-block-size: calc(7lh + var(--block-space));
+  outline: 0;
+  padding: var(--block-space-half) var(--inline-space);
+
+  * {
+    &:first-child {
+      margin-block-start: 0;
+    }
+
+    &:last-child {
+      margin-block-end: 0;
+    }
   }
+}
+
+.lexical-editor--drag-over {
+  background-color: var(--color-selected);
+  border-radius: 4px;
+  outline: 2px dashed var(--color-selected-dark);
+}
+
+#link-dialog {
+  background-color: var(--color-canvas);
+  border: 1px solid var(--color-ink-lighter);
+  border-radius: 0.5em;
+  box-shadow: var(--shadow);
+  color: var(--color-ink);
+  padding: var(--block-space-half) var(--inline-space);
 }
 
 lexical-toolbar {
   background-color: inherit;
-  border-block-end: 1px solid var(--color-ink-medium);
-  border-radius: 0;
+  border-block-end: 1px solid var(--color-ink-light);
   color: currentColor;
-  display: inline-flex;
+  display: flex;
   font-size: inherit;
+  margin: 0;
   max-inline-size: 100%;
-  padding: 0.2em;
+  padding: 0.2em 0;
   position: relative;
-  overflow: visible;
 
   dialog {
     position: absolute;
   }
 
-  button, label {
-    aspect-ratio: 4/3;
+  button {
+    aspect-ratio: 4/3.5;
     appearance: none;
     background-color: transparent;
     block-size: 2em;
     border: none;
-    border-radius: 0.5em;
+    border-radius: 0.2em;
     color: currentColor;
     cursor: pointer;
     display: grid;
@@ -56,6 +87,7 @@ lexical-toolbar {
 
     &:is(:focus, :hover) {
       background-color: var(--color-ink-lighter);
+      box-shadow: none;
     }
 
     &:is(:active) {

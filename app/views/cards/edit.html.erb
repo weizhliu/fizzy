@@ -1,5 +1,5 @@
 <%= turbo_frame_tag @card, :edit do %>
-  <%= form_with model: @card, url: collection_card_path(@card.collection, @card), class: "card__content rich-text-content", data: { controller: "form paste" } do |form| %>
+  <%= form_with model: @card, url: collection_card_path(@card.collection, @card), class: "card__content", data: { controller: "form paste" } do |form| %>
     <h1 class="card__title">
       <%= form.label :title, class: "flex flex-column align-center" do %>
         <%= form.text_area :title, class: "input input--textarea full-width borderless txt-align-start card-field__title",
@@ -9,7 +9,7 @@
       <% end %>
     </h1>
 
-    <%= form.rich_textarea :description, class: "input input--textarea full-width borderless txt-align-start card-field__description",
+    <%= form.rich_textarea :description, class: "card-field__description rich-text-content",
           placeholder: "Add some notes, context, pictures, or video about this…",
           data: { action: "keydown.ctrl+enter->form#submit:prevent keydown.meta+enter->form#submit:prevent keydown.esc->form#cancel:stop paste->paste#pasteFiles" } %>
     </div>
