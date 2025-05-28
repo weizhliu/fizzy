@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/basecamp/actiontext-lexical.git
-  revision: 23d1effaa144e1115633af038efe15c4e07daf0e
+  revision: 8804035239fc0ba320dcb3cce47d56297af37634
   branch: initial
   specs:
     actiontext-lexical (0.1.0)
