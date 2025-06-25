@@ -17,7 +17,7 @@ class Command::StageTest < ActionDispatch::IntegrationTest
   end
 
   test "move cards on cards' index page" do
-    cards = [cards(:logo), cards(:layout), cards(:text)]
+    cards = [ cards(:logo), cards(:layout), cards(:text) ]
 
     execute_command "/stage #{@new_stage.name}", context_url: collection_cards_url(@card.collection)
 
@@ -27,7 +27,7 @@ class Command::StageTest < ActionDispatch::IntegrationTest
   end
 
   test "undo stage change" do
-    cards = [cards(:logo), cards(:layout), cards(:text)]
+    cards = [ cards(:logo), cards(:layout), cards(:text) ]
     cards.each { it.change_stage_to @original_stage }
 
     command = parse_command "/stage #{@new_stage.name}", context_url: collection_cards_url(@card.collection)
