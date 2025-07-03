@@ -37,9 +37,7 @@ class Command::Parser
       when /^#/
         Command::FilterByTag.new(tag_title: tag_title_from(string), params: filter.as_params)
       when /^@/
-        Command::GoToUser.new(user_id: context.find_user(command_name)&.id)
-      when "/user"
-        Command::GoToUser.new(user_id: context.find_user(combined_arguments)&.id)
+        Command::GoToUser.new(user_id: context.find_user(string)&.id)
       when "/assign", "/assignto"
         Command::Assign.new(assignee_ids: assignees_from(command_arguments).collect(&:id), card_ids: cards.ids)
       when "/clear"
@@ -64,8 +62,20 @@ class Command::Parser
         Command::VisitUrl.new(url: command_arguments.first)
       when "/tag"
         Command::Tag.new(tag_title: tag_title_from(combined_arguments), card_ids: cards.ids)
+      when /^gid:\/\//
+        parse_gid command_name
       else
         parse_free_string(string)
+      end
+    end
+
+    def parse_gid(command_name)
+      Rails.logger.info "COMMAND NAME = #{command_name}"
+      case record = GlobalID::Locator.locate(command_name)
+      when Tag
+        Command::FilterByTag.new(tag_title: record.title, params: filter.as_params)
+      when User
+        Command::GoToUser.new(user_id: record.id)
       end
     end
 
