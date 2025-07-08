@@ -12,8 +12,9 @@ proxy:
   ssl: true
 
 registry:
-  username: bcbot
-  password:
+  server: registry.37signals.com
+  username: robot$harbor-bot
+  password: 
     - BASECAMP_REGISTRY_PASSWORD
 
 builder:

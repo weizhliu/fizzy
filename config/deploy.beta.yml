@@ -23,8 +23,9 @@ env:
 x-beamer-accessory: &beamer-accessory
   image: basecamp/beamer:vfs
   registry:
-    username: bcbot
-    password:
+    server: registry.37signals.com
+    username: robot$harbor-bot
+    password: 
       - BASECAMP_REGISTRY_PASSWORD
   options:
     user: 1000 # Match the UID of the Rails app, for volume permissions
