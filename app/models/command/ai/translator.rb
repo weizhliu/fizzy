@@ -29,7 +29,7 @@ class Command::Ai::Translator
     end
 
     def cache_key_for(query)
-      "command_translator:#{user.id}:#{query}:#{current_view_description}"
+      "command_translator:v1:#{user.id}:#{query}:#{current_view_description}"
     end
 
     def chat
