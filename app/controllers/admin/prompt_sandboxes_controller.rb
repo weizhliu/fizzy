@@ -2,13 +2,13 @@ class Admin::PromptSandboxesController < AdminController
   include DayTimelinesScoped
 
   MODELS = %w[
-      chatgpt-4o-latest
-      gpt-4.1
-      gpt-3.5-turbo
-      gpt-4.1-mini
-      gpt-4.1-nano
-      gpt-4o-mini
-    ]
+    chatgpt-4o-latest
+    gpt-4.1
+    gpt-3.5-turbo
+    gpt-4.1-mini
+    gpt-4.1-nano
+    gpt-4o-mini
+  ]
 
   def show
     @llm_models = MODELS.map { |model| [ model, model ] }
