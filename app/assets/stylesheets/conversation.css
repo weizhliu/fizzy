@@ -1,22 +1,29 @@
 @layer components {
   .conversation {
+    font-family: var(--font-sans);
     padding-block-end: 6em;
   }
 
   .conversation__composer {
-    background-color: var(--color-white);
-    border-block-start: 1px solid var(--color-ink-lighter);
-    border-radius: 0 0 0.5em 0.5em;
+    backdrop-filter: blur(24px);
     display: flex;
     gap: var(--inline-space);
     inset: auto 0 0 0;
-    padding: var(--block-space-half) var(--block-space);
+    padding: var(--block-space);
     position: absolute;
 
     .conversation__submit {
       display: flex;
       flex-direction: column;
     }
+  }
+
+  .conversation__header {
+    backdrop-filter: blur(24px);
+    inset: 0 0 auto 0;
+    padding: var(--block-space);
+    position: absolute;
+    text-align: center;
   }
 
   .conversation__input {
@@ -32,11 +39,9 @@
     display: flex;
 
     .action-text-content {
-      background-color: var(--color-ink-lightest);
+      
       border-radius: 0.5rem;
-      font-size: var(--text-x-small);
       inline-size: fit-content;
-      padding: var(--block-space);
     }
 
     p {
@@ -71,8 +76,9 @@
     justify-content: flex-end;
 
     .action-text-content {
-      background-color: var(--color-selected);
+      background-color: var(--color-ink-lightest);
       margin-inline-start: 15%;
+      padding: var(--block-space-half) var(--inline-space-double);
       text-align: end;
     }
   }
@@ -93,8 +99,9 @@
     display: flex;
     flex-direction: column;
     gap: var(--block-space);
-    max-block-size: calc(100dvh - 6em - var(--block-space) - 2 * var(--footer-height));
+    margin-inline: calc(var(--block-space-half) * -0.5);
+    max-block-size: calc(100dvh - 6em - var(--block-space-double) - 2 * var(--footer-height));
     overflow-y: auto;
-    padding: var(--block-space-half) var(--block-space-half);
+    padding: var(--block-space-half) var(--block-space);
   }
 }
