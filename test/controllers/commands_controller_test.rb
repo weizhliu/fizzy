@@ -48,19 +48,6 @@ class CommandsControllerTest < ActionDispatch::IntegrationTest
     assert_equal cards_path(assignee_ids: [ users(:jz) ]), json["redirect_to"]
   end
 
-  test "get insight" do
-    without_vcr_body_matching do
-      assert_difference -> { users(:kevin).commands.root.count }, +1 do
-        post commands_path, params: { command: "summarize this" }, headers: { "HTTP_REFERER" => card_path(cards(:logo)) }
-      end
-
-      assert_response :accepted
-
-      json = JSON.parse(response.body)
-      assert_not_nil json["message"]
-    end
-  end
-
   test "get a 422 on errors" do
     post commands_path, params: { command: "/assign @some_missing_user" }, headers: { "HTTP_REFERER" => cards_path }
     assert_response :unprocessable_entity

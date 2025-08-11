@@ -7,7 +7,6 @@ class Event::Summarizer
   MAX_WORDS = 120
 
   LLM_MODEL = "chatgpt-4o-latest"
-  # LLM_MODEL = "gpt-4.1"
 
   PROMPT = <<~PROMPT
     - I'm a member of the team on this account. Give me a summary of the top 5 most interesting or important things in the day's activities.

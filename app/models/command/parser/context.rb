@@ -1,15 +1,12 @@
 class Command::Parser::Context
-  attr_reader :user, :url, :script_name, :source_context
+  attr_reader :user, :url, :script_name
 
   MAX_CARDS = 75
 
-  # TODO: +source_context+, +originally_viewing_card_contents?+ and +original_cards+ are part
-  #   of a workaround for the "get insight" experiment. I'll remove once I remove that.
-  def initialize(user, url:, script_name: "", source_context: nil)
+  def initialize(user, url:, script_name: "")
     @user = user
     @url = url
     @script_name = script_name
-    @source_context = source_context
 
     extract_url_components
   end
@@ -20,14 +17,6 @@ class Command::Parser::Context
 
   def viewing_card_contents?
     viewing_card_perma?
-  end
-
-  def originally_viewing_card_contents?
-    (source_context || self).viewing_card_contents?
-  end
-
-  def original_cards
-    (source_context || self).cards
   end
 
   def viewing_list_of_cards?

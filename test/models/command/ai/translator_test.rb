@@ -166,26 +166,6 @@ class Command::Ai::TranslatorTest < ActionDispatch::IntegrationTest
     assert_command({ commands: [ "/search backups" ] }, "backups")
   end
 
-  test "get insight" do
-    assert_command({ context: { indexed_by: "latest" }, commands: [ "/insight cards similar to 1234" ] }, "cards similar to 1234")
-
-    assert_command({ context: { indexed_by: "latest" }, commands: [ "/insight cards where mike has commented on" ] }, "cards where mike has commented on")
-    assert_command({ context: { assignee_ids: [ "jz" ] }, commands: [ "/insight cards where mike has commented" ] }, "cards where mike has commented assigned to jz")
-    assert_command({ context: { indexed_by: "latest" }, commands: [ "/insight are there blockers here?" ] }, "are there blockers here?")
-    assert_command({ context: { indexed_by: "latest" }, commands: [ "/insight stuff that jz has done lately" ] }, "stuff that jz has done lately")
-    assert_command({ context: { indexed_by: "latest" }, commands: [ "/insight challenging cards" ] }, "challenging cards")
-    assert_command({ context: { indexed_by: "latest" }, commands: [ "/insight who is everywhere?" ] }, "who is everywhere?")
-    assert_command({ context: { indexed_by: "latest" }, commands: [ "/insight who is overloaded" ] }, "who is overloaded")
-
-    assert_command({ context: { indexed_by: "latest" }, commands: [ "/insight cards similar to this one" ] }, "cards similar to this one", context: :card)
-
-    assert_command({ commands: [ "/insight summarize" ] }, "summarize", context: :card)
-    assert_command({ commands: [ "/insight are there blockers?" ] }, "are there blockers?", context: :card)
-
-    assert_command({ context: { indexed_by: "latest" }, commands: [ "/insight cards with much activity" ] }, "cards with much activity")
-    assert_command({ context: { stage_ids: [ "triage" ] }, commands: [ "/insight summarize" ] }, "summarize cards in triage")
-  end
-
   test "combine commands and filters" do
     assert_command(
       { context: { card_ids: [ 176, 170 ] }, commands: [ "/do", "/assign #{users(:david).to_gid}", "/stage investigating" ] },
