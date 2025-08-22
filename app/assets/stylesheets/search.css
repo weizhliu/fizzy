@@ -61,7 +61,7 @@
 
   .search__list {
     display: grid;
-    gap: 1ch;
+    gap: var(--block-space);
     list-style: none;
     margin: 0 auto;
     max-inline-size: 80ch;
@@ -70,15 +70,14 @@
   }
 
   .search__empty {
+    margin-block: 3em;
     opacity: 0.66;
-    border: 2px dashed var(--color-ink-light);
-    border-radius: 1ch;
-    padding: calc(var(--gap) / 2);
+    text-align: center;
   }
 
   .search__excerpt {
+    color: var(--color-ink);
     font-size: var(--text-small);
-    margin-block-start: 0.5ch;
   }
 
   .search__excerpt--comment {
@@ -86,15 +85,28 @@
     --comment-avatar-size: 32px;
     --padding: 1ch;
 
+    align-items: center;
     background-color: var(--color-ink-lightest);
     border-radius: 1ch;
     display: flex;
     gap: 1ch;
-    margin-left: calc(var(--comment-avatar-size) / 2);
+    margin-inline-start: calc(var(--comment-avatar-size) / 2);
     padding-block: 0.5ch;
 
     .avatar {
-      margin-left: calc(-0.5 * var(--comment-avatar-size));
+      margin-inline-start: calc(-0.5 * var(--comment-avatar-size));
     }
+  }
+
+  .search__result {
+    color: var(--color-link);
+
+    &:not(&:hover) {
+      box-shadow: 0 0 0 1px var(--color-ink-lighter);
+    }
+  }
+
+  .search__title {
+    text-decoration: underline;
   }
 }

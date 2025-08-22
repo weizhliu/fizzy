@@ -1,18 +1,8 @@
 <li>
-  <%= link_to result.source, class: "card card--search", data: { turbo_frame: "_top" } do %>
-    <header class="card__header">
-      <label class="card__collection flex align-center">
-        <span class="card__id"><%= result.card_id %></span>
-        <span class="card__collection-name">
-        <span class="overflow-ellipsis"><%= result.collection_name %></span>
-      </span>
-      </label>
-    </header>
-
-    <div class="card__body justify-space-between">
-      <div class="card__content">
-        <h3 class="card__title">
-          <%= result.card_title&.html_safe %>
+  <%= link_to result.source, class: "search__result", data: { turbo_frame: "_top" } do %>
+      <div>
+        <h3 class="search__title txt--medium margin-none">
+          # <%= result.card_id %> <%= result.card_title&.html_safe %>
         </h3>
 
         <% if result.card_description.present? %>
@@ -30,6 +20,6 @@
           <% end %>
         <% end %>
       </div>
-    </div>
+      <div class="overflow-ellipsis translucent txt-ink"><%= result.collection_name %></div>
   <% end %>
 </li>
