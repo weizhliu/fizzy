@@ -61,21 +61,25 @@ class ConversationTest < ActiveSupport::TestCase
     assert conversation.ready?, "The conversation should switch back to ready after a response is made"
   end
 
-  test "clearing conversation messages" do
+  test "cost limits" do
     conversation = conversations(:kevin)
 
-    assert conversation.messages.any?, "The conversation should have messages before clearing"
+    conversation.ask("Where does the planning office keep demolition notices?")
+    conversation.respond(
+      "In a locked filing cabinet in a disused lavatory",
+      cost_in_microcents: Ai::Quota::Money.wrap("$3").in_microcents
+    )
 
-    original_updated_at = conversation.updated_at
-    conversation.clear
-    assert conversation.updated_at > original_updated_at, "The conversation's updated_at timestamp should change after clearing messages"
+    conversation.ask("What's the meaning of life?")
+    conversation.respond("42", cost_in_microcents: Ai::Quota::Money.wrap("$120").in_microcents)
 
-    assert conversation.messages.empty?, "All messages should be deleted when clearing the conversation"
-  end
+    assert_raises Ai::Quota::UsageExceedsQuotaError do
+      conversation.ask("Should you leave a house without a towel?")
+    end
 
-  test "cost calculation" do
-    conversation = conversations(:kevin)
+    travel 1.month
 
-    assert_equal "0.01053".to_d, conversation.cost
+    conversation.ask("Should you leave a house without a towel?")
+    conversation.respond("Never", cost_in_microcents: Ai::Quota::Money.wrap("$0.01").in_microcents)
   end
 end

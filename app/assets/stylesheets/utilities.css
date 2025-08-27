@@ -79,6 +79,7 @@
   .half-width { inline-size: 50%; }
   .max-width { max-inline-size: 100%; }
   .min-content { inline-size: min-content; }
+  .fit-content { inline-size: fit-content; }
   .max-inline-size { max-inline-size: 100%; }
 
   /* Overflow */

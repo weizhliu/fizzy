@@ -16,7 +16,7 @@ module FiltersHelper
   end
 
   def filter_place_menu_item(path, label, icon)
-    tag.li class: "popup__group", data: { filter_target: "item", navigable_list_target: "item" } do
+    tag.li class: "popup__group", id: "filter-place-#{label.parameterize}", data: { filter_target: "item", navigable_list_target: "item" } do
       concat icon_tag(icon)
       concat(link_to(path, class: "popup__item btn") do
         concat tag.span(label, class: "overflow-ellipsis")
@@ -34,5 +34,13 @@ module FiltersHelper
       navigable_list_focus_on_selection_value: false,
       navigable_list_actionable_items_value: true
     }, &block
+  end
+
+  def filter_hotkey_link(title, path, key, icon)
+    link_to path, class: "popup__group btn borderless", id: "filter-hotkey-#{key}", role: "listitem", data: { filter_target: "item", navigable_list_target: "item", controller: "hotkey", action: "keydown.#{key}@document->hotkey#click keydown.shift+#{key}@document->hotkey#click" } do
+      concat icon_tag(icon)
+      concat tag.span(title.html_safe)
+      concat tag.kbd(key)
+    end
   end
 end

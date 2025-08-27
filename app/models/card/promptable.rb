@@ -1,8 +1,6 @@
 module Card::Promptable
   extend ActiveSupport::Concern
 
-  MAX_COMMENTS = 10
-
   included do
     include Rails.application.routes.url_helpers
   end
@@ -31,7 +29,6 @@ module Card::Promptable
       * Number of comments: #{comments.count}
       * Path: #{collection_card_path(collection, self, script_name: Account.sole.slug)}
 
-      #{comments.last(MAX_COMMENTS).collect(&:to_prompt).join("\n")}
       END OF CARD #{id}
     PROMPT
   end

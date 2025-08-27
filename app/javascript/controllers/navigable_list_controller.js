@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 import { nextFrame } from "helpers/timing_helpers"
 
 export default class extends Controller {
-  static targets = [ "item" ]
+  static targets = [ "item", "input" ]
   static values = {
     reverseOrder: { type: Boolean, default: false },
     selectionAttribute: { type: String, default: "aria-selected" },
@@ -73,6 +73,7 @@ export default class extends Controller {
 
   async #setCurrentFrom(element) {
     const selectedItem = this.#visibleItems.find(item => item.contains(element))
+    const id = selectedItem?.getAttribute("id")
 
     if (selectedItem) {
       this.#clearSelection()
@@ -80,6 +81,9 @@ export default class extends Controller {
       this.currentItem = selectedItem
       await nextFrame()
       if (this.focusOnSelectionValue) { this.currentItem.focus() }
+      if (this.hasInputTarget && id) {
+        this.inputTarget.setAttribute("aria-activedescendant", id)
+      }
     }
   }
 

@@ -1,4 +1,4 @@
-<li class="popup__group" data-filter-target="item" data-navigable-list-target="item">
+<li class="popup__group" data-filter-target="item" data-navigable-list-target="item" id="<%= "filter-tag-#{tag.id}" %>">
   <%= icon_tag "tag" %>
   <%= link_to cards_path(tag_ids: [tag]), class: "popup__item btn" do %>
     <span class="overflow-ellipsis"><%= tag.title %> (<%= tag.cards_count %>)</span>

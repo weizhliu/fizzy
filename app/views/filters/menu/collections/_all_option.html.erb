@@ -1,14 +1,14 @@
 <% clear_url_path = user_filtering.self_filter_path(user_filtering.as_params.except(:collection_ids)) %>
 
 <% if Current.user.collections.one? %>
-  <%= link_to clear_url_path, class: "popup__group", data: { filter_target: "item", navigable_list_target: "item" } do %>
+  <%= link_to clear_url_path, class: "popup__group", id: "filter-collection-init", data: { filter_target: "item", navigable_list_target: "item" } do %>
     <%= tag.div class: "popup__item btn" do %>
       <span class="overflow-ellipsis"><%= Current.user.collections.first.name %></span>
       <span class="txt-ink translucent flex-item-no-shrink flex-item-justify-end"><span class="txt-x-small txt-uppercase">GO TO</span> ›</span>
     <% end %>
   <% end %>
 <% elsif Current.user.collections.many? %>
-  <div class="popup__group" data-filter-target="item" data-navigable-list-target="item">
+  <li class="popup__group" data-filter-target="item" data-navigable-list-target="item" id="filter-collection-all">
     <%= link_to clear_url_path, class: "btn txt-xx-small flex-item-no-shrink" do %>
       <%= check_box_tag "filter_collections", nil, user_filtering.collections.blank?, class: "form-checkbox" %>
       <span class="for-screen-reader">
@@ -21,5 +21,5 @@
       <span class="overflow-ellipsis">All collections</span>
       <span class="txt-ink translucent flex-item-no-shrink flex-item-justify-end"><span class="txt-x-small txt-uppercase">GO TO</span> ›</span>
     <% end %>
-  </div>
+  </li>
 <% end %>

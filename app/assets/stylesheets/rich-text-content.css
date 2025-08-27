@@ -21,7 +21,7 @@
     :where(h6) { font-size: 0.67em; }
 
     :where(p, ul, ol, dl, blockquote, figure, .attachment) {
-      margin-block: var(--block-margin);
+      margin-block: 0 var(--block-margin);
 
       &:not(lexxy-editor &) {
         overflow-wrap: break-word;
@@ -171,13 +171,22 @@
     margin-inline: 0;
     max-inline-size: 100%;
 
-    &:is(figure) img,
-    &:is(figure) video {
-      block-size: auto;
-      display: block;
+    &:is(figure) {
+      inline-size: fit-content;
       margin-inline: auto;
-      max-inline-size: 100%;
-      user-select: none;
+      display: block;
+
+      img, video {
+        block-size: auto;
+        display: block;
+        margin-inline: auto;
+        max-inline-size: 100%;
+        user-select: none;
+      }
+
+      > a {
+        display: block;
+      }
     }
 
     :where(progress) {

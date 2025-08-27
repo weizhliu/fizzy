@@ -28,6 +28,6 @@ class Event::ActivitySummaryTest < ActiveSupport::TestCase
 
   test "getting an HTML summary for a set of events" do
     summary = Event::ActivitySummary.create_for(@events)
-    assert_includes summary.to_html, "layout"
+    assert_match /layout/i, summary.to_html
   end
 end

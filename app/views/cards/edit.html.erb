@@ -14,7 +14,7 @@
       <%= general_prompts(@card.collection) %>
     <% end %>
 
-    <%= form.button "Save changes", type: :submit, class: "btn btn--reversed", style: "--btn-background: #{@card.color}" %>
+    <%= form.button "Save changes", type: :submit, class: "btn btn--reversed fit-content", style: "--btn-background: #{@card.color}" %>
     <%= link_to "Close editor and discard changes", collection_card_path(@card.collection, @card), data: { form_target: "cancel" }, hidden: true %>
   <% end %>
 <% end %>

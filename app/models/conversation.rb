@@ -8,16 +8,9 @@ class Conversation < ApplicationRecord
 
   enum :state, %w[ ready thinking ].index_by(&:itself), default: :ready
 
-  def cost
-    messages.where.not(cost_microcents: nil).sum(:cost_microcents).to_d / 100_000
-  end
-
-  def clear
-    messages.delete_all
-    touch
-  end
-
   def ask(question, **attributes)
+    user.ensure_ai_quota_not_depleted
+
     create_message_with_state_change(**attributes, role: :user, content: question) do
       raise(InvalidStateError, "Can't ask questions while thinking") if thinking?
       thinking!
@@ -25,10 +18,14 @@ class Conversation < ApplicationRecord
   end
 
   def respond(answer, **attributes)
-    create_message_with_state_change(**attributes, role: :assistant, content: answer) do
+    message = create_message_with_state_change(**attributes, role: :assistant, content: answer) do
       raise(InvalidStateError, "Can't respond when not thinking") unless thinking?
       ready!
     end
+
+    user.spend_ai_quota(message.cost) if message.cost
+
+    message
   end
 
   private

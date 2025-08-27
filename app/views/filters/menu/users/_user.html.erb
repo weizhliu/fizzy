@@ -1,4 +1,4 @@
-<li class="popup__group" data-filter-target="item" data-navigable-list-target="item">
+<li class="popup__group" data-filter-target="item" data-navigable-list-target="item" id="<%= "filter-user-#{user.id}" %>">
   <%= icon_tag "person" %>
   <%= link_to user, class: "popup__item btn" do %>
     <span class="overflow-ellipsis"><%= user.name %></span>

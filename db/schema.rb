@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_08_26_131458) do
+ActiveRecord::Schema[8.1].define(version: 2025_08_27_072601) do
   create_table "accesses", force: :cascade do |t|
     t.datetime "accessed_at"
     t.integer "collection_id", null: false
@@ -71,6 +71,17 @@ ActiveRecord::Schema[8.1].define(version: 2025_08_26_131458) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "ai_quotas", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "limit", null: false
+    t.datetime "reset_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "used", default: 0, null: false
+    t.integer "user_id", null: false
+    t.index ["reset_at"], name: "index_ai_quotas_on_reset_at"
+    t.index ["user_id"], name: "index_ai_quotas_on_user_id"
   end
 
   create_table "assignees_filters", id: false, force: :cascade do |t|
@@ -197,12 +208,12 @@ ActiveRecord::Schema[8.1].define(version: 2025_08_26_131458) do
   create_table "conversation_messages", force: :cascade do |t|
     t.string "client_message_id", null: false
     t.integer "conversation_id", null: false
-    t.bigint "cost_microcents"
+    t.bigint "cost_in_microcents"
     t.datetime "created_at", null: false
-    t.bigint "input_cost_microcents"
+    t.bigint "input_cost_in_microcents"
     t.bigint "input_tokens"
     t.string "model_id"
-    t.bigint "output_cost_microcents"
+    t.bigint "output_cost_in_microcents"
     t.bigint "output_tokens"
     t.string "role", null: false
     t.datetime "updated_at", null: false
@@ -239,6 +250,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_08_26_131458) do
 
   create_table "event_activity_summaries", force: :cascade do |t|
     t.text "content", null: false
+    t.bigint "cost_in_microcents", default: 0, null: false
     t.datetime "created_at", null: false
     t.string "key", null: false
     t.datetime "updated_at", null: false
@@ -450,6 +462,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_08_26_131458) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "ai_quotas", "users"
   add_foreign_key "card_activity_spikes", "cards"
   add_foreign_key "card_goldnesses", "cards"
   add_foreign_key "cards", "workflow_stages", column: "stage_id"
