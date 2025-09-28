@@ -7,11 +7,8 @@
   <%= render "columns/show/add_card_button", collection: collection %>
 
   <% if page.used? %>
-    <%= render "collections/columns/list", cards: page.records, draggable: true %>
-
-    <% unless page.last? %>
-      <div class="full-width">
-      </div>
+    <%= with_manual_pagination "the-stream", @page do %>
+      <%= render "collections/columns/list", cards: page.records, draggable: true %>
     <% end %>
   <% end %>
 
