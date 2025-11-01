@@ -23,14 +23,14 @@ module NotificationsHelper
     tag.div id: dom_id(notification), class: "tray__item tray__item--notification", data: {
       navigable_list_target: "item",
       notifications_tray_target: "notification",
-      card_id: notification.card.id, timestamp: notification.created_at.to_i } do
-      concat(
-        link_to(notification,
-          class: [ "card card--notification", { "card--closed": notification.card.closed? }, { "unread": !notification.read? } ],
-          data: { turbo_frame: "_top", badge_target: "unread", action: "badge#update" },
-          style: { "--card-color:": notification.card.color },
-          &)
-      )
+      card_id: notification.card.id,
+      timestamp: notification.created_at.to_i
+    } do
+      link_to(notification,
+        class: [ "card card--notification", { "card--closed": notification.card.closed? }, { "unread": !notification.read? } ],
+        data: { turbo_frame: "_top", badge_target: "unread", action: "badge#update" },
+        style: { "--card-color:": notification.card.color },
+        &)
     end
   end
 
