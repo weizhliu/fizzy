@@ -25,7 +25,8 @@ default: &default
   port: <%= ENV.fetch "FIZZY_DB_PORT", 3306 %>
   pool: 50
   timeout: 5000
-  <% end %>
+  variables:
+    transaction_isolation: READ-COMMITTED
 
 development:
   <% if use_sqlite %>
